@@ -2,7 +2,7 @@
 
 ## 🚀 Sobre o Projeto
 
-O Pomodoro Fitness é uma inovação criada pelo grupo @francielebueno, @hiediferreira, @ThaisEFAG, @TThaz e @yohanaff da turma FuturoDEV [Fitness] do Floripa Mais Tec, que visa integrar técnicas de produtividade com hábitos de vida saudáveis. Inspirado na técnica Pomodoro para gestão de tempo, este projeto transforma cada intervalo de descanso em uma oportunidade para exercícios físicos rápidos e eficazes.
+O Pomodoro Fitness é uma inovação criada pelo grupo [@francielebueno](https://github.com/francielebueno), [@hiediferreira](https://github.com/hiediferreira), [@ThaisEFAG](https://github.com/ThaisEFAG), [@TThaz](https://github.com/TThaz) e @yohanaff da turma FuturoDEV [Fitness] do Floripa Mais Tec, que visa integrar técnicas de produtividade com hábitos de vida saudáveis. Inspirado na técnica Pomodoro para gestão de tempo, este projeto transforma cada intervalo de descanso em uma oportunidade para exercícios físicos rápidos e eficazes.
 
 ## 🎯 Objetivo
 
