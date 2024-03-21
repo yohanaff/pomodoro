@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateDisplay();
 
                 if (secondsRemaining <= 0) {
-                    document.getElementById('alarmSound').play(); // Play alarm sound
+                    document.getElementById('alarmSound').play();
 
                     if (currentPhase === 'work') {
                         switchPhase(cycleCount === 3 ? 'longBreak' : 'shortBreak');
