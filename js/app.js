@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const fetchExercises = async (page = 0) => {
-        const url = `https://api.api-ninjas.com/v1/exercises?type=stretching&page=${page}`;
+        const url = `https://api.api-ninjas.com/v1/exercises?page=${page}`;
         const apiKey = 'JUsNoEnkuPaf4D9xULuTbQ==N7xtfAPpJyO2YhWW';
         try {
             const response = await fetch(url, {
