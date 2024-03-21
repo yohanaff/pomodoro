@@ -1,4 +1,6 @@
-# Pomodoro Fitness
+<p align="center">
+  <img src="./pomodoro-fitness-logo.png" alt="Pomodoro Fitness">
+</p>
 
 Welcome to Pomodoro Fitness! This README is available in both English and Portuguese.
 
