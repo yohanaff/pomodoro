@@ -1,8 +1,30 @@
+<p align="center">
+  <img src="./pomodoro-fitness-logo.png" alt="Pomodoro Fitness">
+</p>
+
+Welcome to Pomodoro Fitness! This README is available in both English and Portuguese.
+
+Bem-vindo(a) ao Pomodoro Fitness! Este README está disponível tanto em inglês quanto em português.
+
+## English
+
+- [About the Project](#about-the-project)
+- [Objective](#objective)
+- [How It Works](#how-it-works)
+- [Contributors](#contributors)
+
+## Português
+
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Objetivo](#objetivo)
+- [Como Funciona](#como-funciona)
+- [Contribuidores](#contribuidores)
+
 # Pomodoro Fitness: A Jornada para um estilo de vida mais saudável e produtivo
 
 ## 🚀 Sobre o Projeto
 
-O Pomodoro Fitness é uma inovação criada pelo grupo [@francielebueno](https://github.com/francielebueno), [@hiediferreira](https://github.com/hiediferreira), [@ThaisEFAG](https://github.com/ThaisEFAG), [@TThaz](https://github.com/TThaz) e @yohanaff da turma FuturoDEV [Fitness] do Floripa Mais Tec, que visa integrar técnicas de produtividade com hábitos de vida saudáveis. Inspirado na técnica Pomodoro para gestão de tempo, este projeto transforma cada intervalo de descanso em uma oportunidade para exercícios físicos rápidos e eficazes.
+O Pomodoro Fitness é uma inovação criada pelo grupo [Franciele Bueno](https://github.com/francielebueno), [Hiédi Ferreira](https://github.com/hiediferreira), [Thaís Elaine](https://github.com/ThaisEFAG), [Thalles Azevedo](https://github.com/TThaz) e [Yohana Fernandes](https://github.com/yohanaff) da turma FuturoDEV [Fitness] do Floripa Mais Tec, que visa integrar técnicas de produtividade com hábitos de vida saudáveis. Inspirado na técnica Pomodoro para gestão de tempo, este projeto transforma cada intervalo de descanso em uma oportunidade para exercícios físicos rápidos e eficazes.
 
 ## 🎯 Objetivo
 
@@ -18,12 +40,28 @@ A técnica é simples, mas poderosa:
 
 ## 🌈 Contribuidores
 
-@francielebueno
+[@francielebueno](https://github.com/francielebueno), [@hiediferreira](https://github.com/hiediferreira), [@ThaisEFAG](https://github.com/ThaisEFAG), [@TThaz](https://github.com/TThaz), [@yohanaff](https://github.com/yohanaff)
 
-@hiediferreira
+-------------------------------------------------
 
-@ThaisEFAG
+# Pomodoro Fitness: The Journey to a Healthier and More Productive Lifestyle
 
-@TThaz
+## 🚀 About the Project
 
-@yohanaff
+Pomodoro Fitness is an innovation created by the group [Franciele Bueno](https://github.com/francielebueno), [Hiédi Ferreira](https://github.com/hiediferreira), [Thaís Elaine](https://github.com/ThaisEFAG), [Thalles Azevedo](https://github.com/TThaz) and [Yohana Fernandes] from the FuturoDEV [Fitness] class at Floripa Mais Tec. It aims to integrate productivity techniques with healthy living habits. Inspired by the Pomodoro time management technique, this project turns every rest interval into an opportunity for quick and effective physical exercises.
+
+## 🎯 Objective
+
+Our goal is to promote not only productivity at work or in studies but also to encourage an active lifestyle. With Pomodoro Fitness, you can manage your time efficiently while taking care of your physical and mental health.
+
+## 💡 How It Works
+
+The technique is simple yet powerful:
+
+1. **Focus**: Work intensively for 25 minutes.
+2. **Activate**: Perform a 5-minute exercise session chosen by our app.
+3. **Repeat**: Continue with this cycle, and take a longer break after 4 cycles.
+
+## 🌈 Contributors
+
+[@francielebueno](https://github.com/francielebueno), [@hiediferreira](https://github.com/hiediferreira), [@ThaisEFAG](https://github.com/ThaisEFAG), [@TThaz](https://github.com/TThaz), [@yohanaff](https://github.com/yohanaff)
