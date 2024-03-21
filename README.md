@@ -5,3 +5,5 @@ Trabalho da turma FuturoDEV [Fitness] do Floripa Mais Tec
 ## Objetivo
 
 Commit novo
+
+Commit Hiédi
