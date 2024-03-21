@@ -93,6 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateDisplay();
 
                 if (secondsRemaining <= 0) {
+                    document.getElementById('alarmSound').play(); // Play alarm sound
+
                     if (currentPhase === 'work') {
                         switchPhase(cycleCount === 3 ? 'longBreak' : 'shortBreak');
                         displayExercise();
@@ -168,6 +170,24 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('exercise-container').classList.add('hidden');
         displayExercise();
     };
+
+    if (secondsRemaining <= 0) {
+        if (currentPhase === 'work') {
+            switchPhase(cycleCount === 3 ? 'longBreak' : 'shortBreak');
+            document.getElementById('alarmSound').play();
+            displayExercise();
+        } else {
+            switchPhase('work');
+            document.getElementById('alarmSound').play();
+        }
+    }
+
+    document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', () => {
+            console.log("Button clicked, attempting to play sound");
+            document.getElementById('clickSound').play();
+        });
+    });
 
     workButton.addEventListener('click', () => switchPhase('work'));
     shortBreakButton.addEventListener('click', () => switchPhase('shortBreak'));
