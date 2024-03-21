@@ -18,19 +18,29 @@
                 <div class="time">
                     <div class="time-label">
                         <button id="work">Pomodoro</button>
-                        <button id="short-break">Pausa curta</button>
-                        <button id="long-break">Pausa longa</button>
+                        <button id="short-break">Short break</button>
+                        <button id="long-break">Long break</button>
                     </div>
                     <span id="minutes">25</span>
                     <span>:</span>
                     <span id="seconds">00</span>
                 </div>
                 <div class="buttons">
-                    <button id="start">Iniciar</button>
-                    <button id="pause" class="hidden">Pausar</button>
+                    <button id="start">Start</button>
+                    <button id="pause" class="hidden">Pause</button>
                 </div>
                 <p id="cycle">Cycle: 1</p>
             </div>
+        </div>
+        <div id="exercise-container" class="hidden">
+            <h3 id="exercise-name"></h3>
+            <span>💪</span>
+            <p id="exercise-description"></p>
+            <h2 id="exercise-type"></h2>
+            <h2 id="exercise-muscle"></h2>
+            <h2 id="exercise-equipment"></h2>
+            <h2 id="exercise-difficulty"></h2>
+            <input type="checkbox" id="complete-exercise" class="hidden">
         </div>
     </main>
 </body>
