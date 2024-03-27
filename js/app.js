@@ -13,7 +13,7 @@ function saveLocalExercise(exerciseIndex = 0) {
 
 function loadLocalExercise() {
     const indexString = window.localStorage.getItem(STORAGE_KEY) || "0";
-    return new Number(indexString) || 0;
+    return isNaN(indexString) ? 0 : Number(indexString);
 }
 
 function displayExerciseContainer(exercise = {}) {
