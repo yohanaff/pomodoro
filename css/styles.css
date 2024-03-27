@@ -33,7 +33,7 @@
     }
 
     .logo {
-        width: 30rem;
+        width: 20rem;
         margin-bottom: 1rem;
     }
 
@@ -56,6 +56,11 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         width: 30rem;
         margin: auto;
+    }
+
+    .timer-display {
+        display: flex;
+        justify-content: center;
     }
 
     .timer-container.work {
@@ -157,3 +162,14 @@
     #exercise-description {
         font-size: 1rem;
     }
+
+    #short-break-done-btn {
+        margin: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 1.2rem;
+        color: #000000;
+        background-color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+}
