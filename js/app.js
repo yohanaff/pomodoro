@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let isRunning = false;
     let interval;
-    let cycleCount = 0;
+    let cycleCount = 1;
 
     let currentPhase = 'work';
     let secondsRemaining = POMODORO_TIME;
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let seconds = secondsRemaining - (minutes * 60);
         minutesSpan.textContent = String(minutes).padStart(2, '0');
         secondsSpan.textContent = String(seconds).padStart(2, '0');
-        cycleDisplay.textContent = `Cycle: ${cycleCount + 1}`;
+        cycleDisplay.textContent = `Cycle: ${cycleCount}`;
     };
 
     const switchPhase = (phase) => {
@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (phase === 'work') {
             hideExerciseContainer();
 
-            if (cycleCount === 3) {
-                cycleCount = 0;
+            if (cycleCount === 4) {
+                cycleCount = 1;
             } else {
                 cycleCount++;
             }
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     alarmElement.play();
 
                     if (currentPhase === 'work') {
-                        switchPhase(cycleCount === 3 ? 'longBreak' : 'shortBreak');
+                        switchPhase(cycleCount === 4 ? 'longBreak' : 'shortBreak');
                     } else {
                         switchPhase('work');
                     }
@@ -186,7 +186,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    workButton.addEventListener('click', () => switchPhase('work'));
+    function clickPomodoro() {
+        if (currentPhase !== 'work') {
+            switchPhase('work');
+        }
+    }
+
+    workButton.addEventListener('click', () => clickPomodoro());
     shortBreakButton.addEventListener('click', () => switchPhase('shortBreak'));
     longBreakButton.addEventListener('click', () => switchPhase('longBreak'));
     stopExerciseButton.addEventListener('click', () => switchPhase('work'));
