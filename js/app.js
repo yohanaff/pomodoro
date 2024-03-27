@@ -1,6 +1,13 @@
 let currentPage = 0;
 let currentExerciseIndex = 0
 
+const pomodoroTime = 60; // 25 minutos em segundos
+const stretchingTime = 15; // Set this to 5 for production
+const longBreakTime = 30; // Set this to 15 for production
+
+
+const alarmElement = document.getElementById('alarmSound');
+
 document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.getElementById('start');
     const pauseButton = document.getElementById('pause');
@@ -16,12 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let interval;
     let cycleCount = 0;
 
-    const workTime = 0.05; // Set this to 25 for production
-    const shortBreakTime = 0.05; // Set this to 5 for production
-    const longBreakTime = 0.10; // Set this to 15 for production
 
     let currentPhase = 'work';
-    let secondsRemaining = workTime * 60;
+    let secondsRemaining = pomodoroTime;
 
     const loadSavedState = () => {
         const savedState = JSON.parse(localStorage.getItem('exerciseState')) || { currentPage: 0, currentExerciseIndex: 0, displayedExercises: [] };
@@ -34,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateDisplay = () => {
         let minutes = Math.floor(secondsRemaining / 60);
-        let seconds = secondsRemaining % 60;
+        let seconds = secondsRemaining - (minutes*60);
         minutesSpan.textContent = String(minutes).padStart(2, '0');
         secondsSpan.textContent = String(seconds).padStart(2, '0');
         cycleDisplay.textContent = `Cycle: ${cycleCount + 1}`;
@@ -60,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         if (phase === 'work') {
-            document.getElementById('exercise-container').classList.add('hidden');
+            hideStretchingContainer();
 
             if (cycleCount === 3) {
                 cycleCount = 0;
@@ -70,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         document.body.style.backgroundColor = backgroundColors[phase];
-        document.getElementById('exercise-container').style.backgroundColor = exerciseContainerBackgroundColors[phase];
+        // document.getElementById('exercise-container').style.backgroundColor = exerciseContainerBackgroundColors[phase];
 
         const phaseToClass = {
             'work': 'work',
@@ -89,11 +93,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isRunning) {
             isRunning = true;
             interval = setInterval(() => {
-                secondsRemaining--;
+                secondsRemaining = secondsRemaining - 1;
                 updateDisplay();
 
                 if (secondsRemaining <= 0) {
-                    document.getElementById('alarmSound').play();
+                    alarmElement.play();
 
                     if (currentPhase === 'work') {
                         switchPhase(cycleCount === 3 ? 'longBreak' : 'shortBreak');
@@ -199,3 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDisplay();
     toggleButtons();
 });
+
+function hideStretchingContainer() {
+    document.getElementById('exercise-container').classList.add('hidden');
+}
