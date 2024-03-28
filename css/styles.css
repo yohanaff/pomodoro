@@ -51,6 +51,7 @@ body {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         width: 90vw;  /*90% do tamanho da tela*/
         margin: auto;
+        margin-bottom: 2rem;
     }
 
     .timer-display {
@@ -138,16 +139,13 @@ body {
     }
 
     #exercise-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         transition: background-color 1.5s ease;
         padding: 2rem;
         background-color: #2a6c70;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         width: 90vw;
-        margin: 2rem auto;
+        margin-bottom: 2rem;
     }
 
     #exercise-container span {
