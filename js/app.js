@@ -1,5 +1,36 @@
-let currentPage = 0;
-let currentExerciseIndex = 0
+const POMODORO_TIME = 60; // Set this to 1500 => 25 min for production
+const SHORT_BREAK_TIME = 15; // Set this to 300 => 5 min for production
+const LONG_BREAK_TIME = 30; // Set this to 900 => 15 min for production
+
+const STORAGE_KEY = "exerciseState";
+
+const stopExerciseButton = document.getElementById('short-break-done-btn');
+
+function saveLocalExercise(exerciseIndex = 0) {
+    const indexString = "" + exerciseIndex;
+    window.localStorage.setItem(STORAGE_KEY, indexString);
+}
+
+function loadLocalExercise() {
+    const indexString = window.localStorage.getItem(STORAGE_KEY) || "0";
+    return isNaN(indexString) ? 0 : Number(indexString);
+}
+
+function displayExerciseContainer(exercise = {}) {
+    document.getElementById('exercise-name').textContent = exercise.name;
+    document.getElementById('exercise-description').textContent = exercise.instructions;
+    document.getElementById('exercise-type').textContent = `Type: ${exercise.type}`;
+    document.getElementById('exercise-muscle').textContent = `Muscle: ${exercise.muscle}`;
+    document.getElementById('exercise-equipment').textContent = `Equipment: ${exercise.equipment}`;
+    document.getElementById('exercise-difficulty').textContent = `Difficulty: ${exercise.difficulty}`;
+    document.getElementById('exercise-container').classList.remove('hidden');
+    stopExerciseButton.classList.remove("hidden");
+}
+
+function hideExerciseContainer() {
+    document.getElementById('exercise-container').classList.add('hidden');
+    stopExerciseButton.classList.add("hidden");
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.getElementById('start');
@@ -14,30 +45,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let isRunning = false;
     let interval;
-    let cycleCount = 0;
-
-    const workTime = 0.05; // Set this to 25 for production
-    const shortBreakTime = 0.05; // Set this to 5 for production
-    const longBreakTime = 0.10; // Set this to 15 for production
+    let cycleCount = 1;
 
     let currentPhase = 'work';
-    let secondsRemaining = workTime * 60;
-
-    const loadSavedState = () => {
-        const savedState = JSON.parse(localStorage.getItem('exerciseState')) || { currentPage: 0, currentExerciseIndex: 0, displayedExercises: [] };
-        currentPage = savedState.currentPage;
-        currentExerciseIndex = savedState.currentExerciseIndex;
-        localStorage.setItem('exerciseState', JSON.stringify(savedState));
-    };
-
-    loadSavedState();
+    let secondsRemaining = POMODORO_TIME;
 
     const updateDisplay = () => {
         let minutes = Math.floor(secondsRemaining / 60);
-        let seconds = secondsRemaining % 60;
+        let seconds = secondsRemaining - (minutes * 60);
         minutesSpan.textContent = String(minutes).padStart(2, '0');
         secondsSpan.textContent = String(seconds).padStart(2, '0');
-        cycleDisplay.textContent = `Cycle: ${cycleCount + 1}`;
+        cycleDisplay.textContent = `Cycle: ${cycleCount}`;
     };
 
     const switchPhase = (phase) => {
@@ -45,8 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
         isRunning = false;
         currentPhase = phase;
 
-        let time = phase === 'work' ? workTime : (phase === 'shortBreak' ? shortBreakTime : longBreakTime);
-        secondsRemaining = time * 60;
+        let time = phase === 'work' ? POMODORO_TIME : (phase === 'shortBreak' ? SHORT_BREAK_TIME : LONG_BREAK_TIME);
+        secondsRemaining = time;
 
         const backgroundColors = {
             'work': '#ba4949',
@@ -59,18 +77,24 @@ document.addEventListener('DOMContentLoaded', () => {
             'longBreak': '#4d7fa2'
         };
 
-        if (phase === 'work') {
-            document.getElementById('exercise-container').classList.add('hidden');
 
-            if (cycleCount === 3) {
-                cycleCount = 0;
+        if (phase === 'work') {
+            hideExerciseContainer();
+
+            if (cycleCount === 4) {
+                cycleCount = 1;
             } else {
                 cycleCount++;
             }
+
+        } else if (phase === "shortBreak") {
+            displayExercise();
+
+        } else {
+            hideExerciseContainer();
         }
 
         document.body.style.backgroundColor = backgroundColors[phase];
-        document.getElementById('exercise-container').style.backgroundColor = exerciseContainerBackgroundColors[phase];
 
         const phaseToClass = {
             'work': 'work',
@@ -82,45 +106,46 @@ document.addEventListener('DOMContentLoaded', () => {
         timerContainer.classList.add(phaseToClass[phase]);
 
         updateDisplay();
-        toggleButtons();
+        togglePomodoroButtons();
     };
 
     const startPomodoro = () => {
+        const alarmElement = document.getElementById('alarmSound');
+
         if (!isRunning) {
             isRunning = true;
             interval = setInterval(() => {
-                secondsRemaining--;
+                secondsRemaining = secondsRemaining - 1;
                 updateDisplay();
 
                 if (secondsRemaining <= 0) {
-                    document.getElementById('alarmSound').play();
+                    alarmElement.play();
 
                     if (currentPhase === 'work') {
-                        switchPhase(cycleCount === 3 ? 'longBreak' : 'shortBreak');
-                        displayExercise();
+                        switchPhase(cycleCount === 4 ? 'longBreak' : 'shortBreak');
                     } else {
                         switchPhase('work');
                     }
                 }
             }, 1000);
         }
-        toggleButtons();
+        togglePomodoroButtons();
     };
 
     const pausePomodoro = () => {
         clearInterval(interval);
         isRunning = false;
-        toggleButtons();
+        togglePomodoroButtons();
     };
 
-    const toggleButtons = () => {
+    const togglePomodoroButtons = () => {
         startButton.classList.toggle('hidden', isRunning);
         pauseButton.classList.toggle('hidden', !isRunning);
     };
 
-    const fetchExercises = async (page = 0) => {
-        const url = `https://api.api-ninjas.com/v1/exercises?page=${page}`;
-        const apiKey = 'JUsNoEnkuPaf4D9xULuTbQ==N7xtfAPpJyO2YhWW';
+    const fetchExercise = async (offset = 0) => {
+        const url = `https://api.api-ninjas.com/v1/exercises?type=stretching&offset=${offset}`;
+        const apiKey = 'API-KEY';
         try {
             const response = await fetch(url, {
                 method: 'GET',
@@ -130,57 +155,29 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             if (!response.ok) throw new Error('Error while fetching exercises.');
             const data = await response.json();
-            return data;
+            return data[0] || {}; // get the first array's item
         } catch (error) {
             console.error('API error:', error);
-            return [];
+            return null;
         }
     };
 
-    const displayExercise = async () => {
-        const savedState = JSON.parse(localStorage.getItem('exerciseState')) || { currentPage: 0, currentExerciseIndex: 0, displayedExercises: [] };
-        const exercises = await fetchExercises(savedState.currentPage);
+    async function displayExercise() {
+        const currentExerciseNumber = loadLocalExercise();
+        let exercise = await fetchExercise(currentExerciseNumber);
 
-        if (!exercises || exercises.length === 0) return;
-
-        let exercise;
-        if (savedState.currentExerciseIndex >= exercises.length) {
-            savedState.currentPage++;
-            savedState.currentExerciseIndex = 0;
-            const newExercises = await fetchExercises(savedState.currentPage);
-            exercise = newExercises[0];
-        } else {
-            exercise = exercises[savedState.currentExerciseIndex];
+        if (!exercise) { // api error
+            exercise = {}
+        } else if (!exercise.type) { // empty exercise
+            saveLocalExercise();
+            exercise = await fetchExercise();
         }
 
-        document.getElementById('exercise-name').textContent = exercise.name;
-        document.getElementById('exercise-description').textContent = exercise.instructions;
-        document.getElementById('exercise-type').textContent = `Type: ${exercise.type}`;
-        document.getElementById('exercise-muscle').textContent = `Muscle: ${exercise.muscle}`;
-        document.getElementById('exercise-equipment').textContent = `Equipment: ${exercise.equipment}`;
-        document.getElementById('exercise-difficulty').textContent = `Difficulty: ${exercise.difficulty}`;
-        document.getElementById('exercise-container').classList.remove('hidden');
+        displayExerciseContainer(exercise);
 
-        savedState.currentExerciseIndex++;
-        savedState.displayedExercises.push(currentExerciseIndex);
-        localStorage.setItem('exerciseState', JSON.stringify(savedState));
+        const nextExerciseNumber = currentExerciseNumber + 1;
+        saveLocalExercise(nextExerciseNumber);
     };
-
-    document.getElementById('complete-exercise').onclick = () => {
-        document.getElementById('exercise-container').classList.add('hidden');
-        displayExercise();
-    };
-
-    if (secondsRemaining <= 0) {
-        if (currentPhase === 'work') {
-            switchPhase(cycleCount === 3 ? 'longBreak' : 'shortBreak');
-            document.getElementById('alarmSound').play();
-            displayExercise();
-        } else {
-            switchPhase('work');
-            document.getElementById('alarmSound').play();
-        }
-    }
 
     document.querySelectorAll('button').forEach(button => {
         button.addEventListener('click', () => {
@@ -189,13 +186,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    workButton.addEventListener('click', () => switchPhase('work'));
+    function clickPomodoro() {
+        if (currentPhase !== 'work') {
+            switchPhase('work');
+        }
+    }
+
+    workButton.addEventListener('click', () => clickPomodoro());
     shortBreakButton.addEventListener('click', () => switchPhase('shortBreak'));
     longBreakButton.addEventListener('click', () => switchPhase('longBreak'));
+    stopExerciseButton.addEventListener('click', () => switchPhase('work'));
 
     startButton.addEventListener('click', startPomodoro);
     pauseButton.addEventListener('click', pausePomodoro);
 
     updateDisplay();
-    toggleButtons();
+    togglePomodoroButtons();
 });
+
