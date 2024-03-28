@@ -12,7 +12,7 @@
 
 <body>
     <main>
-        <img src="img/logo.png" alt="Pomodoro Fitness" class="logo">
+        <h1><img src="img/logo.png" alt="Pomodoro Fitness" class="logo"></h1>
         <div class="timer-container">
             <div class="timer">
                 <div class="time">
@@ -22,7 +22,7 @@
                         <button id="long-break">Long break</button>
                     </div>
                     <span id="minutes" class="font-span">25</span>
-                    <span>:</span>
+                    <span class="font-span">:</span>
                     <span id="seconds" class="font-span" class="font-span">00</span>
                 </div>
                 <div class="buttons">
@@ -32,6 +32,7 @@
                 <p id="cycle">Cycle: 1</p>
             </div>
         </div>
+
         <div id="exercise-container" class="hidden">
             <h3 id="exercise-name"></h3>
             <span>💪</span>
@@ -40,7 +41,7 @@
             <h2 id="exercise-muscle"></h2>
             <h2 id="exercise-equipment"></h2>
             <h2 id="exercise-difficulty"></h2>
-            <input type="checkbox" id="complete-exercise" class="hidden">
+            <button id="short-break-done-btn" class="hidden">Done</button>
         </div>
     </main>
 
