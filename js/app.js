@@ -1,10 +1,13 @@
-const POMODORO_TIME = 60; // Set this to 1500 => 25 min for production
-const SHORT_BREAK_TIME = 15; // Set this to 300 => 5 min for production
-const LONG_BREAK_TIME = 30; // Set this to 900 => 15 min for production
+const POMODORO_TIME = 25; // Set this to 1500 => 25 min for production
+const SHORT_BREAK_TIME = 5; // Set this to 300 => 5 min for production
+const LONG_BREAK_TIME = 15; // Set this to 900 => 15 min for production
+const WATER_TIME = 3;
 
 const STORAGE_KEY = "exerciseState";
 
 const stopExerciseButton = document.getElementById('short-break-done-btn');
+const stopWaterButton = document.getElementById('water-time-done-btn');
+
 
 function saveLocalExercise(exerciseIndex = 0) {
     const indexString = "" + exerciseIndex;
@@ -27,9 +30,17 @@ function displayExerciseContainer(exercise = {}) {
     stopExerciseButton.classList.remove("hidden");
 }
 
+function displayWaterContainer() {
+    document.getElementById('water-container').style.display = 'block';
+}
+
 function hideExerciseContainer() {
     document.getElementById('exercise-container').classList.add('hidden');
     stopExerciseButton.classList.add("hidden");
+}
+
+function hideWaterContainer() {
+    document.getElementById('water-container').style.display = 'none';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -38,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const workButton = document.getElementById('work');
     const shortBreakButton = document.getElementById('short-break');
     const longBreakButton = document.getElementById('long-break');
+    const waterTimeButton = document.getElementById('water-time');
     const minutesSpan = document.getElementById('minutes');
     const secondsSpan = document.getElementById('seconds');
     const cycleDisplay = document.getElementById('cycle');
@@ -63,23 +75,30 @@ document.addEventListener('DOMContentLoaded', () => {
         isRunning = false;
         currentPhase = phase;
 
-        let time = phase === 'work' ? POMODORO_TIME : (phase === 'shortBreak' ? SHORT_BREAK_TIME : LONG_BREAK_TIME);
+        // let time = phase === 'work' ? POMODORO_TIME : (phase === 'shortBreak' ? SHORT_BREAK_TIME : LONG_BREAK_TIME);
+        let time;
+        if (phase === 'work') {
+            time = POMODORO_TIME;
+        } else if (phase === 'shortBreak') {
+            time = SHORT_BREAK_TIME;
+        } else if (phase === 'waterTime') {
+            time = WATER_TIME;
+        } else {
+            time = LONG_BREAK_TIME;
+        }
         secondsRemaining = time;
 
         const backgroundColors = {
             'work': '#ba4949',
             'shortBreak': '#38858a',
-            'longBreak': '#397097'
-        };
-        const exerciseContainerBackgroundColors = {
-            'work': '#c15b5c',
-            'shortBreak': '#4d9196',
-            'longBreak': '#4d7fa2'
+            'longBreak': '#397097',
+            'waterTime': '#2798aa'
         };
 
 
         if (phase === 'work') {
             hideExerciseContainer();
+            hideWaterContainer();
 
             if (cycleCount === 4) {
                 cycleCount = 1;
@@ -89,9 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } else if (phase === "shortBreak") {
             displayExercise();
-
+            hideWaterContainer();
+        } else if (phase === "waterTime") {
+            hideExerciseContainer();
+            displayWaterContainer();
         } else {
             hideExerciseContainer();
+            hideWaterContainer();
         }
 
         document.body.style.backgroundColor = backgroundColors[phase];
@@ -99,7 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const phaseToClass = {
             'work': 'work',
             'shortBreak': 'short-break',
-            'longBreak': 'long-break'
+            'longBreak': 'long-break',
+            'waterTime': 'water-time'
         };
 
         timerContainer.className = 'timer-container';
@@ -196,6 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
     shortBreakButton.addEventListener('click', () => switchPhase('shortBreak'));
     longBreakButton.addEventListener('click', () => switchPhase('longBreak'));
     stopExerciseButton.addEventListener('click', () => switchPhase('work'));
+    waterTimeButton.addEventListener('click', () => switchPhase('waterTime'));
 
     startButton.addEventListener('click', startPomodoro);
     pauseButton.addEventListener('click', pausePomodoro);
@@ -203,4 +228,3 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDisplay();
     togglePomodoroButtons();
 });
-
