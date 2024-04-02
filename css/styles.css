@@ -13,8 +13,11 @@ body {
     text-align: center;
 }
 
-@media all{   /*Telas menores que 768px*/
-    body, .timer-container{
+@media all {
+
+    /*Telas menores que 768px*/
+    body,
+    .timer-container {
         transition: background-color 1.5s ease;
     }
 
@@ -34,7 +37,8 @@ body {
     }
 
     .logo {
-        width: 20rem; /*Logo diminui em telas menores*/
+        width: 20rem;
+        /*Logo diminui em telas menores*/
         margin: 2rem 0;
     }
 
@@ -49,7 +53,8 @@ body {
         background-color: #c15b5c;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 90vw;  /*90% do tamanho da tela*/
+        width: 90vw;
+        /*90% do tamanho da tela*/
         margin: auto;
         margin-bottom: 2rem;
     }
@@ -72,7 +77,7 @@ body {
     }
 
     .timer-container.water-time {
-        background-color: blue;
+        background-color: #6eb5c0;
     }
 
     .timer-container.paused-box {
@@ -85,12 +90,13 @@ body {
         align-items: center;
     }
 
-    .font-span{
-        font-size: 48px;  /*Tamanho de um elemento h1*/
+    .font-span {
+        font-size: 48px;
+        /*Tamanho de um elemento h1*/
         font-weight: bold;
     }
 
-    button{
+    button {
         /*O que é comum aos botões*/
         padding: 0.5rem 1rem;
         color: #000000;
@@ -109,37 +115,50 @@ body {
         opacity: 0.8;
     }
 
-    button#work:focus{ /*Ao ser clicado (foco)*/
+    button#work:focus {
+        /*Ao ser clicado (foco)*/
         background-color: #a44d4e;
         font-weight: bold;
-        transition: background-color 1.5s ease; /*Para acompanhar transição da cor da tela*/
+        transition: background-color 1.5s ease;
+        /*Para acompanhar transição da cor da tela*/
     }
 
-    button#short-break:focus{
+    button#short-break:focus {
         background-color: #417b80;
         font-weight: bold;
-        transition: background-color 1.5s ease; /*Para acompanhar transição da tela*/
+        transition: background-color 1.5s ease;
+        /*Para acompanhar transição da tela*/
     }
 
-    button#long-break:focus{
+    button#long-break:focus {
         background-color: #416c8a;
         font-weight: bold;
-        transition: background-color 1.5s ease; /*Para acompanhar transição da tela*/
+        transition: background-color 1.5s ease;
+        /*Para acompanhar transição da tela*/
+    }
+
+    button#water-time:focus {
+        background-color: #007d90;
+        font-weight: bold;
+        transition: background-color 1.5s ease;
+        /*Para acompanhar transição da tela*/
     }
 
     .buttons button {
         margin: 2rem 0;
         font-size: 1.2rem;
         background-color: #ffffff;
-    }   
+    }
 
     .hidden {
-        display: none; /*Inicialmente oculto*/
+        display: none;
+        /*Inicialmente oculto*/
     }
 
     #cycle {
         margin-bottom: 1rem;
-        font-size: max(1.2rem, 2.5vw); /*Responsivo*/
+        font-size: max(1.2rem, 2.5vw);
+        /*Responsivo*/
     }
 
     #exercise-container {
@@ -153,7 +172,8 @@ body {
     }
 
     #exercise-container span {
-        font-size: max(2rem, 4vw); /*Responsivo*/
+        font-size: max(2rem, 4vw);
+        /*Responsivo*/
     }
 
     #exercise-container p {
@@ -173,20 +193,52 @@ body {
         font-size: 1rem;
         margin: 1rem 0;
     }
+
+    #water-container {
+        display: none;
+    }
+
+    #water-container {
+        transition: background-color 1.5s ease;
+        padding: 2rem;
+        background-color: #007d90;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 90vw;
+        margin-bottom: 2rem;
+    }
+
+    #water-container span {
+        font-size: max(2rem, 4vw);
+        /*Responsivo*/
+    }
+
+    #water-container p {
+        margin-top: 1rem;
+    }
+
+    #water-container h2 {
+        margin-bottom: 1rem;
+    }
 }
 
-@media screen and (min-width:768px) { /*Telas médias*/
+@media screen and (min-width:768px) {
+
+    /*Telas médias*/
     .logo {
-        width: 30rem;  /*Aumentando o logo*/
+        width: 30rem;
+        /*Aumentando o logo*/
         margin: 2rem 0;
     }
 
-    .font-span{
-        font-size: max(48px, 8vw); /*Não fica menor que um elemento h1*/
+    .font-span {
+        font-size: max(48px, 8vw);
+        /*Não fica menor que um elemento h1*/
     }
 
     .timer-container {
-        width: 60vw;   /*Em telas médias, 60% da tela*/
+        width: 60vw;
+        /*Em telas médias, 60% da tela*/
     }
 
     .time {
@@ -195,22 +247,33 @@ body {
     }
 
     #exercise-container {
-        width: 60vw;  /*Mesmo tamanho de .timer-container*/
+        width: 60vw;
+        /*Mesmo tamanho de .timer-container*/
+    }
+
+    #water-container {
+        width: 60vw;
+        /*Mesmo tamanho de .timer-container*/
     }
 }
 
-@media screen and (min-width:992px) { /*Telas grandes*/
+@media screen and (min-width:992px) {
+
+    /*Telas grandes*/
     .logo {
-        width: 30rem;  /*Aumentando o logo*/
+        width: 30rem;
+        /*Aumentando o logo*/
         margin: 2rem 0;
     }
 
-    .font-span{
-        font-size: min(120px, 8vw);  /*Não passa de 120px*/
+    .font-span {
+        font-size: min(120px, 8vw);
+        /*Não passa de 120px*/
     }
 
     .timer-container {
-        width: 50vw;   /*Em telas grandes, 50% da tela para não ficar exageradamente grande*/
+        width: 50vw;
+        /*Em telas grandes, 50% da tela para não ficar exageradamente grande*/
     }
 
     .time {
@@ -219,6 +282,12 @@ body {
     }
 
     #exercise-container {
-        width: 50vw;  /*Mesmo tamanho de .timer-container*/
+        width: 50vw;
+        /*Mesmo tamanho de .timer-container*/
+    }
+
+    #water-container {
+        width: 50vw;
+        /*Mesmo tamanho de .timer-container*/
     }
 }
