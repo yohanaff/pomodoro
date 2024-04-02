@@ -71,6 +71,10 @@ body {
         background-color: #4d7fa2;
     }
 
+    .timer-container.water-time {
+        background-color: blue;
+    }
+
     .timer-container.paused-box {
         background-color: #777;
     }
